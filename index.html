@@ -1,0 +1,53 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Logo Generator</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="stylesheet" href="css/bulma.min.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+
+<body>
+  <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+
+  <div class="container" id="logo-generator-app" v-cloak>
+    <section class="hero column is-light">
+      <div class="hero-body">
+        <p class="title">Logo Generator</p>
+        <p class="subtitle">by Konstantin Naumov</p>
+      </div>
+    </section>
+
+    <section class="columns">
+      <div class="column is-4">
+        <div class="tile is-child box">
+          <div>
+            <color-input name="o" title="Outline color" placeholder="#4A79A5"></color-input>
+            <color-input name="k" title="Letter K color" placeholder="#345171"></color-input>
+            <color-input name="n" title="Letter N color" placeholder="#4A79A5"></color-input>
+          </div>
+          <button @click="download" class="button is-white is-fullwidth">Download</button>
+        </div>
+      </div>
+      <div class="column is-8">
+        <div class="tile is-child box">
+          <canvas id="logo-canvas" width="550" height="550"></canvas>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="js/vuex.min.js"></script>
+  <script src="js/vue.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
