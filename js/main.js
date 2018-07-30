@@ -80,7 +80,6 @@ Vue.component('color-input', {
 
     onPick() {
       this.value = this.pickedValue;
-      console.log('123')
     },
 
     clear() {
