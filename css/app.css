@@ -8,10 +8,12 @@
 
 .tabs { margin-bottom: -4px !important; z-index: 5; position: relative; background: white; margin-left: -1px; }
 .tabs ul { border-color: #DCDCDC !important; }
-.tabs ul li.is-active a { border-color: #DCDCDC !important; color: #4A79A5; font-weight: 500 }
+.tabs ul li a:hover { background-color: transparent !important; text-decoration: underline; }
+.tabs ul li.is-active a { border-color: #DCDCDC !important; color: #4A79A5; font-weight: 500; pointer-events: none; }
 
+form { padding: 4px 0 8px; }
 .field { margin-bottom: 20px !important; }
-.field:last-child { margin-bottom: 27px !important; }
+.field:last-child { margin-bottom: 0 !important; }
 .field .control { padding-right: 52px; position: relative; }
 .field .demo-color { width: 36px; height: 36px; position: absolute; right: 0; top: 0px; border-radius: 4px; -webkit-box-shadow: inset 0 1px 2px rgba(10,10,10,.1); box-shadow: inset 0 1px 2px rgba(10,10,10,.1); border: solid 1px #dbdbdb; }
 .field .demo-color:hover { border: solid 1px #999; }

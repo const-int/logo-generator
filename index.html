@@ -42,9 +42,9 @@
 
         <div class="tile is-child box">
           <form id="color-settings">
-            <color-input name="k" ref="input-color-k" v-show="variation === 'outlined'" title="Letter «K» color" placeholder="#345171"></color-input>
-            <color-input name="n" ref="input-color-n" v-show="variation === 'outlined'" title="Letter «N» and line color" placeholder="#4A79A5"></color-input>
-            <color-input name="b" ref="input-color-b" v-show="variation === 'filled'" title="Background color" placeholder="#DA272D"></color-input>
+            <color-input name="k" ref="input-color-k" v-if="variation === 'outlined'" title="Letter «K» color" placeholder="#345171"></color-input>
+            <color-input name="n" ref="input-color-n" v-if="variation === 'outlined'" title="Letter «N» and line color" placeholder="#4A79A5"></color-input>
+            <color-input name="b" ref="input-color-b" v-if="variation === 'filled'" title="Background color" placeholder="#DA272D"></color-input>
           </form>
         </div>
 
