@@ -1,6 +1,5 @@
 <!doctype html>
 <html class="no-js" lang="">
-
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -8,7 +7,13 @@
   <meta name="description" content="Konstanint Naumov's Logo Generator">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+
   <link rel="stylesheet" href="css/bulma.min.css">
   <link rel="stylesheet" href="css/app.css">
 </head>
@@ -18,29 +23,40 @@
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
   <![endif]-->
 
-  <div class="container" id="logo-generator-app" v-cloak>
-    <section class="hero column is-light">
-      <div class="hero-body">
-        <p class="title">Logo Generator</p>
-        <p class="subtitle">by Konstantin Naumov</p>
-      </div>
-    </section>
+  <nav class="navbar has-background-white-ter with-box-shadow" role="navigation" aria-label="main navigation">
+    <div class="container">
+      <img src="img/logo.png" class="navbar-logo" alt="KN">
+      <span class="navbar-item has-text-weight-semibold">SVG logo colorizer</span>
+    </div>
+  </nav>
 
+  <div class="container" id="logo-generator-app" v-cloak>
     <section class="columns">
       <div class="column is-4">
-        <div class="tile is-child box">
-          <div>
-            <color-input name="o" title="Outline color" placeholder="#4A79A5"></color-input>
-            <color-input name="k" title="Letter K color" placeholder="#345171"></color-input>
-            <color-input name="n" title="Letter N color" placeholder="#4A79A5"></color-input>
-          </div>
-          <button @click="download" class="button is-white is-fullwidth">Download</button>
+        <div class="tabs is-boxed">
+          <ul>
+            <li @click="variation = 'outlined'" :class="{'is-active': variation === 'outlined'}"><a>Outlined</a></li>
+            <li @click="variation = 'filled'" :class="{'is-active': variation === 'filled'}"><a>Filled</a></li>
+          </ul>
         </div>
+
+        <div class="tile is-child box">
+          <form id="color-settings">
+            <color-input name="k" ref="input-color-k" v-show="variation === 'outlined'" title="Letter «K» color" placeholder="#345171"></color-input>
+            <color-input name="n" ref="input-color-n" v-show="variation === 'outlined'" title="Letter «N» and line color" placeholder="#4A79A5"></color-input>
+            <color-input name="b" ref="input-color-b" v-show="variation === 'filled'" title="Background color" placeholder="#DA272D"></color-input>
+          </form>
+        </div>
+
+        <download-button @download="download" hide-for="mobile"></download-button>
       </div>
+
       <div class="column is-8">
-        <div class="tile is-child box">
-          <canvas id="logo-canvas" width="550" height="550"></canvas>
+        <div class="tile is-child box result-container has-background-white-ter">
+          <div class="result-container-title has-text-weight-semibold">Preview</div>
+          <canvas id="logo-canvas" width="500" height="500"></canvas>
         </div>
+        <download-button @download="download" hide-for="tablet"></download-button>
       </div>
     </section>
   </div>
@@ -49,5 +65,4 @@
   <script src="js/vue.min.js"></script>
   <script src="js/main.js"></script>
 </body>
-
 </html>
