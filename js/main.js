@@ -151,8 +151,8 @@ var app = new Vue({
 
     clearInputs() {
       for (let key in this.$refs) {
-        if (this.$refs.hasOwnProperty(key) && key.toString().indexOf('input-color-') === 0) {
-          this.$refs[key].clear();
+        if (this.$refs.hasOwnProperty(key) &&  key.toString().indexOf('input-color-') === 0) {
+          if (this.$refs[key]) this.$refs[key].clear();
         }
       }
     }
