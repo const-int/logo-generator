@@ -113,7 +113,7 @@ var app = new Vue({
   methods: {
     getLayout() {
       return `
-      <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 426 426" style="enable-background:new 0 0 426 426;" xml:space="preserve">
+      <svg width="500px" height="500px" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 426 426" style="enable-background:new 0 0 426 426;" xml:space="preserve">
         <circle fill="#FFFFFF" cx="213" cy="213" r="213"/>
         <circle fill="${this.colors.b}" cx="213" cy="213" r="183"/>
         <path fill="${this.variation ==='filled' ? this.colors.b : this.colors.n}" d="M213,40c46.2,0,89.7,18,122.3,50.7S386,166.8,386,213c0,46.2-18,89.7-50.7,122.3S259.2,386,213,386
@@ -141,11 +141,9 @@ var app = new Vue({
     },
 
     download() {
-      let image = this.canvas.toDataURL("image/png", 1.0).replace("image/png", "image/octet-stream");
-      let link = document.createElement('a');
-      link.download = "KN.png";
-      link.href = image;
-      link.click();
+      this.canvas.toBlob(function(blob) {
+        saveAs(blob, "KN.png");
+      });
     },
 
     clearInputs() {
