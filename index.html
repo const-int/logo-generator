@@ -5,7 +5,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>Logo Generator</title>
   <meta name="description" content="Konstanint Naumov's Logo Generator">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=960, initial-scale=1, shrink-to-fit=no">
 
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -26,25 +26,30 @@
   <nav class="navbar has-background-white-ter with-box-shadow" role="navigation" aria-label="main navigation">
     <div class="container">
       <img src="img/logo.png" class="navbar-logo" alt="KN">
-      <span class="navbar-item has-text-weight-semibold">SVG logo colorizer</span>
+      <span class="navbar-item has-text-weight-semibold">Handy Custom Icon Maker</span>
     </div>
   </nav>
 
   <div class="container" id="logo-generator-app" v-cloak>
     <section class="columns">
       <div class="column is-4">
-        <div class="tabs is-boxed">
-          <ul>
-            <li @click="variation = 'outlined'" :class="{'is-active': variation === 'outlined'}"><a>Outlined</a></li>
-            <li @click="variation = 'filled'" :class="{'is-active': variation === 'filled'}"><a>Filled</a></li>
-          </ul>
-        </div>
-
         <div class="tile is-child box">
           <form id="color-settings">
-            <color-input name="k" ref="input-color-k" v-if="variation === 'outlined'" title="Letter «K» color" placeholder="#345171"></color-input>
-            <color-input name="n" ref="input-color-n" v-if="variation === 'outlined'" title="Letter «N» and line color" placeholder="#4A79A5"></color-input>
-            <color-input name="b" ref="input-color-b" v-if="variation === 'filled'" title="Background color" placeholder="#DA272D"></color-input>
+            <text-input placeholder="ABC"></text-input>
+            <color-input v-for="(char, i) in text" :number="i" :title="`${char.toUpperCase()}`"></color-input>
+            <color-input title="Outline" :number="3"></color-input>
+            <range-input title="Spacing" v-show="text.length > 1" param="spacing" min="-1" max="20"></range-input>
+            <range-input title="Scale" v-show="text.length > 0" param="scale" min="65" max="135"></range-input>
+
+            <div class="field check-field is-clearfix">
+              <label class="checkbox is-pulled-left">
+                <input v-model="isFilled" type="checkbox" hidden>
+                <span>Filled</span>
+                <div class="visual-checkbox">
+                  <svg style="width: 20px; height: 20px;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#DBDBDB" d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"></path></svg>
+                </div>
+              </label>
+            </div>
           </form>
         </div>
 
@@ -54,13 +59,47 @@
       <div class="column is-8">
         <div class="tile is-child box result-container has-background-white-ter">
           <div class="result-container-title">Preview</div>
-          <canvas id="logo-canvas" width="500" height="500"></canvas>
+
+          <div class="constructor-wrapper">
+            <div id="logo-constructor" class="logo-constructor">
+
+              <!-- Logo background -->
+              <svg height="500px" width="500px" xmlns="http://www.w3.org/2000/svg" style="position: absolute; top: 0; left: 0;" x="0px" y="0px" viewBox="0 0 426 426" style="enable-background:new 0 0 426 426;" xml:space="preserve">
+                <circle fill="#FFFFFF" cx="213" cy="213" r="213"/>
+                <circle :fill="isFilled ? background : '#FFFFFF'" cx="213" cy="213" r="183"/>
+                <path :fill="background" d="M213,40c46.2,0,89.7,18,122.3,50.7S386,166.8,386,213c0,46.2-18,89.7-50.7,122.3S259.2,386,213,386
+                  s-89.7-18-122.3-50.7S40,259.2,40,213s18-89.7,50.7-122.3S166.8,40,213,40 M213,20C106.4,20,20,106.4,20,213s86.4,193,193,193
+                  s193-86.4,193-193S319.6,20,213,20L213,20z"/>
+              </svg>
+
+              <!-- Logo Letters -->
+              <div class="logo-constructor-letters" :class="{'full-width': isFilled}">
+                <div class="logo-constructor-letters-wrapper">
+                  <div v-for="(char, i) in text" class="logo-constructor-letter-wrapper" :style="{
+                      margin: `0 ${spacing}px`,
+                      width: `${Math.floor(getLetter(i).width * scale)}px`,
+                      height: `${Math.floor(122 * scale)}px`}">
+                    <svg
+                      :width="`${Math.floor(getLetter(i).width * scale)}px`" :height="`${Math.floor(122 * scale)}px`"
+                      :view-box.camel="`0 0 ${getLetter(i).width} 122`" xmlns="http://www.w3.org/2000/svg">
+                      <path :fill="colors[i]" :d="getLetter(i).d"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Result Canvas -->
+            <div class="canvas-container" id="canvas" style="opacity: 0;">
+            </div>
+          </div>
         </div>
         <download-button @download="download" hide-for="tablet"></download-button>
       </div>
     </section>
   </div>
 
+  <script src="js/html2canvas.min.js"></script>
   <script src="js/canvastoblob.min.js"></script>
   <script src="js/filesaver.min.js"></script>
   <script src="js/vuex.min.js"></script>
