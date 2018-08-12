@@ -31,14 +31,14 @@
   </nav>
 
   <div class="container" id="logo-generator-app" v-cloak>
-    <section class="columns">
-      <div class="column is-4">
+    <section class="app-container-block columns">
+      <div class="settings-block column is-4">
         <div class="tile is-child box">
           <form id="color-settings">
             <text-input placeholder="ABC"></text-input>
             <color-input v-for="(char, i) in text" :number="i" :title="`${char.toUpperCase()}`"></color-input>
             <color-input title="Outline" :number="3"></color-input>
-            <range-input title="Spacing" v-show="text.length > 1" param="spacing" min="-1" max="20"></range-input>
+            <range-input title="Spacing" v-show="text.length > 1" param="spacing" min="-1" max="21"></range-input>
             <range-input title="Scale" v-show="text.length > 0" param="scale" min="65" max="135"></range-input>
 
             <div class="field check-field is-clearfix">
@@ -56,7 +56,7 @@
         <download-button @download="download" hide-for="mobile"></download-button>
       </div>
 
-      <div class="column is-8">
+      <div class="preview-block column is-8">
         <div class="tile is-child box result-container has-background-white-ter">
           <div class="result-container-title">Preview</div>
 
