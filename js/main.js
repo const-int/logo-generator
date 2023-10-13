@@ -241,8 +241,8 @@ var app = new Vue({
     },
 
     download() {
-      this.canvas.firstChild.toBlob(function(blob) {
-        saveAs(blob, "KN.png");
+      this.canvas.firstChild.toBlob((blob) => {
+        saveAs(blob, `${this.text || 'logo'}.png`);
       });
     },
   },
