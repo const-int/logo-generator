@@ -242,7 +242,7 @@ var app = new Vue({
 
     download() {
       this.canvas.firstChild.toBlob((blob) => {
-        saveAs(blob, `${this.text}.png`);
+        saveAs(blob, `${this.text || 'logo'}.png`);
       });
     },
   },
